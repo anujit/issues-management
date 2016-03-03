@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-var port = 8080;
+var port = process.env.PORT || 8080;
 
 var db = 'mongodb://testuser:test123@ds041404.mlab.com:41404/anujit-first';
 mongoose.connect(db);
