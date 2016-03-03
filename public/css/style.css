@@ -62,13 +62,17 @@ h4{
 }
 
 button{
-	float:right;
+	/*float:right;*/
 	margin-right:30px;
 }
 
 .restaurant-wrapper{
 	width:1300px;
 	margin:auto;
+}
+
+.issue-actions,.addIssueWrap{
+	float: right;
 }
 
 .restaurant-box {

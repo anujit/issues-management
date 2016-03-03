@@ -7,8 +7,8 @@
 		</div>
 		<div class="input-wrap required"><div class="formlabel">Description : </div><input type="text" required ng-model="addCtrl.newReview.description"></div>
 		<div class="input-wrap required"><div class="formlabel">Reported By : </div><input type="text" required ng-model="addCtrl.newReview.reported_by"></div>
-		<div class="input-wrap"><div class="formlabel">Type of issue : </div><input type="text" required ng-model="addCtrl.newReview.type_of_issue"></div>
-		<div class="input-wrap"><div class="formlabel">Additional Comments : </div><input type="text" required ng-model="addCtrl.newReview.comments"></div>
+		<div class="input-wrap"><div class="formlabel">Type of issue : </div><input type="text" ng-model="addCtrl.newReview.type_of_issue"></div>
+		<div class="input-wrap"><div class="formlabel">Additional Comments : </div><input type="text" ng-model="addCtrl.newReview.comments"></div>
 		<input type="submit"
 value="Submit"
 ng-disabled="add-review-form.$invalid">

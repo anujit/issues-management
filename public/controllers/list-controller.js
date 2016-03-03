@@ -16,7 +16,10 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 	//self.url = LIST_URL;
 	self.url = API_URL;
 
-	var list = fetchData.getData(self.url).then(function(data){
+	var list = fetchData.getData({
+		url : self.url,
+		method : 'GET'
+	}).then(function(data){
 		console.log('List of issues -- ', data);
 		self.issues = data;
 	});
@@ -24,5 +27,18 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 	self.addIssue = function(){
 		$location.path('add');
 	};
+
+	self.updateIssue = function(issue){
+		self.editorEnabled[issue.name]=!self.editorEnabled[issue.name];
+		console.log(issue);
+
+		fetchData.getData({
+			url : API_URL + '/' + issue._id,
+			method : 'PUT',
+			data : {
+				description : issue.description
+			}
+		});
+	}
 
 }]);

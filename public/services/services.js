@@ -21,7 +21,7 @@ foodApp.factory('FetchData',['$http','$q',function($http,$q){
 
 	obj.name = 'fetch data service';
 
-	obj.getData = function(url,config){
+	obj.getData = function(config){
 		//return $http.jsonp(url + '&callback=JSON_CALLBACK');
 		//var url = obj.url;
 		var deferred = $q.defer();
@@ -34,12 +34,12 @@ foodApp.factory('FetchData',['$http','$q',function($http,$q){
 
 		//url += url.indexOf('?') != -1 ? '&' : '?';
 		console.log(config);
-		$http.get(url,config)
+		$http(config)
 		.success(function(data){
 			deferred.resolve(data);
 		})
 		.error(function(error){
-			deferred.reject('Cannot load ' + url + ' -- ' + error.message);
+			deferred.reject('Cannot load ' + config.url + ' -- ' + error.message);
 		});
 
 		return deferred.promise;

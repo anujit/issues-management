@@ -75,6 +75,32 @@ console.log("data params : " , dataParams);
 
 });
 
+//update and delete an issue
+router.route('/issues/:issue_id')
+.put(function(req,res){
+  Issue.findById(req.params.issue_id,function(err,issue){
+    if(err) res.send(err);
+
+    issue.description = req.body.description;
+
+    issue.save(function(err){
+      if(err) res.send(err);
+
+      res.json({message:"Issue updated successfully"});
+    });
+
+  });
+})
+.delete(function(req,res){
+  Issue.remove({
+    _id : req.params.issue_id
+  },function(err,issue){
+    if(err) res.send(err);
+
+    res.json({message:"Successfully deleted"});
+  });
+});
+
 app.listen(port);
 
 console.log('Server started on port '+port);
