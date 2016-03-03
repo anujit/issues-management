@@ -1,0 +1,16 @@
+<div class="header">
+	<h4>Add a new issue</h4>
+</div>
+<div class="restaurant-wrapper">
+	<form ng-submit="addCtrl.submit()" name="add-review-form">
+		<div class="input-wrap required"><div class="formlabel">Name of the issue : </div><input type="text" name="restaurant" ng-minlength="2" required ng-model="addCtrl.newReview.name"><span ng-show="add-review-form.restaurant.$error.required">This is a required field</span><span ng-show="add-review-form.restaurant.$error.minlength">Minimum length required is 2</span><span ng-show="add-review-form.restaurant.$invalid">This field is invalid</span>
+		</div>
+		<div class="input-wrap required"><div class="formlabel">Description : </div><input type="text" required ng-model="addCtrl.newReview.description"></div>
+		<div class="input-wrap required"><div class="formlabel">Reported By : </div><input type="text" required ng-model="addCtrl.newReview.reported_by"></div>
+		<div class="input-wrap"><div class="formlabel">Type of issue : </div><input type="text" required ng-model="addCtrl.newReview.type_of_issue"></div>
+		<div class="input-wrap"><div class="formlabel">Additional Comments : </div><input type="text" required ng-model="addCtrl.newReview.comments"></div>
+		<input type="submit"
+value="Submit"
+ng-disabled="add-review-form.$invalid">
+	</form>
+</div>

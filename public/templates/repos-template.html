@@ -1,0 +1,8 @@
+<div class="listWrapper">
+  <div class="header"><h4>Welcome, {{reposCtrl.user}}</h4><div>Your repositories:</div></div>
+  <div class="restaurant-wrapper">
+    <div class="repos-wrap">
+      <div class="input-wrap" ng-repeat="repo in reposCtrl.repos" name="{{repo.name}}" ng-click="reposCtrl.openRepo()">{{repo.name}}</div>
+    </div>
+  </div>
+</div>

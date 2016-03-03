@@ -1,0 +1,12 @@
+{
+  "name": "issues-management-console",
+  "version": "1.0.0",
+  "main":"server.js",
+  "description": "",
+  "author": "",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongodb": "^2.1.7",
+    "mongoose": "^4.4.5"
+  }
+}

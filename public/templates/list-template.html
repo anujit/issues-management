@@ -1,0 +1,30 @@
+<div class="listWrapper">
+	<div class="header">
+		<h4>Manage Issues</h4>
+		<div class="searchWrapper">
+			<label>Search:
+				<input ng-model="searchText">
+			</label>
+			<button ng-click="listCtrl.addIssue()">Add Issue</button>
+		</div>
+	</div>
+	<div class="restaurant-wrapper">
+		<uib-accordion>
+			<uib-accordion-group heading="{{issue.name}}" ng-repeat="issue in listCtrl.issues" is-open="listCtrl.status.isFirstOpen" close-others="listCtrl.oneAtATime" is-disabled="listCtrl.status.isFirstDisabled">
+				<div class="testTemplate">
+				  <div class="issue-inner">
+						<div ng-hide="listCtrl.editorEnabled[issue.name]">{{issue.description}}</div>
+					<div ng-show="listCtrl.editorEnabled[issue.name]">
+						<input style="float:left;" ng-model="issue.description">
+						<button style="float:left;" type="button" class="btn btn-primary" ng-click="listCtrl.editorEnabled[issue.name]=!listCtrl.editorEnabled[issue.name]">Done</button>
+					</div>
+					</div>
+				  <div issue-actions>
+				      <button type="button" class="btn btn-primary" ng-click="listCtrl.editorEnabled[issue.name]=!listCtrl.editorEnabled[issue.name]">Edit</button>
+				      <button type="button" class="btn btn-danger" ng-click="listCtrl.deleteIssue()">Delete</button>
+				  </div>
+				</div>
+			</uib-accordion-group>
+		</uib-accordion>
+	</div>
+</div>
