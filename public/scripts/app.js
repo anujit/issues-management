@@ -50,7 +50,8 @@ var foodApp = angular.module('foodApp',['ngRoute','ui.bootstrap']);
 										method: 'DELETE'
 									}).then(function(data){
 										console.log(data);
-										elt.html('');
+										//elt.html('');
+										elt.remove();
 									});
 	            };
 	        }
