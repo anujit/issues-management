@@ -1,4 +1,4 @@
-	foodApp.controller('AddCtrl',['$http',function($http){
+	foodApp.controller('AddCtrl',['$http','$location',function($http,$location){
 		var self = this;
 
 		self.submit = function(){
@@ -19,6 +19,7 @@
 			$http.post(url,config)
 			.success(function(data){
 				console.log(data);
+				$location.path('/');
 			})
 			.error(function(error){
 				console.log(error);
