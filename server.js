@@ -81,7 +81,8 @@ router.route('/issues/:issue_id')
   Issue.findById(req.params.issue_id,function(err,issue){
     if(err) res.send(err);
 
-    issue.description = req.body.description;
+    issue.description = req.body.description || issue.description;
+    issue.name = req.body.name || issue.name;
 
     issue.save(function(err){
       if(err) res.send(err);

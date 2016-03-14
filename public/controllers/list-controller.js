@@ -32,14 +32,15 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 	};
 
 	self.updateIssue = function(issue){
-		self.editorEnabled[issue.name]=!self.editorEnabled[issue.name];
+		self.editorEnabled[issue._id]=!self.editorEnabled[issue._id];
 		console.log(issue);
 
 		fetchData.getData({
 			url : API_URL + '/' + issue._id,
 			method : 'PUT',
 			data : {
-				description : issue.description
+				description : issue.description,
+				name:issue.name
 			}
 		});
 	}
