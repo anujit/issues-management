@@ -15,10 +15,11 @@
 	    //      return str.join("&");
 	    //  }
 		};
-
+			self.loading = false;
 			$http.post(url,config)
 			.success(function(data){
 				console.log(data);
+				self.loading = true;
 				$location.path('/');
 			})
 			.error(function(error){

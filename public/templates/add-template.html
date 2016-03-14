@@ -2,6 +2,7 @@
 	<h4>Add a new issue</h4>
 </div>
 <div class="restaurant-wrapper">
+	<div class="loading" ng-show="listCtrl.loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" style="width:20px;height:20px;margin:10px;"  />LOADING...</div>
 	<form ng-submit="addCtrl.submit()" name="add-review-form">
 		<div class="input-wrap required"><div class="formlabel">Name of the issue : </div><input type="text" name="restaurant" ng-minlength="2" required ng-model="addCtrl.newReview.name"><span ng-show="add-review-form.restaurant.$error.required">This is a required field</span><span ng-show="add-review-form.restaurant.$error.minlength">Minimum length required is 2</span><span ng-show="add-review-form.restaurant.$invalid">This field is invalid</span>
 		</div>

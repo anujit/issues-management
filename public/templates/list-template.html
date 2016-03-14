@@ -1,4 +1,4 @@
-<div class="listWrapper">
+<div class="listWrapper" class="ng-cloak">
 	<div class="header">
 		<h4>Manage Issues</h4>
 		<div class="searchWrapper">
@@ -11,6 +11,7 @@
 		</div>
 	</div>
 	<div class="restaurant-wrapper">
+		<div class="loading" ng-show="listCtrl.loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" style="width:20px;height:20px;margin:10px;"  />LOADING...</div>
 		<uib-accordion close-others="true" ng-if="listCtrl.issues.length">
 			<uib-accordion-group ng-repeat="issue in listCtrl.issues | orderBy:'-updated_at' | filter:searchText" heading="{{issue.name}}" remove-on-click>
 				<div class="testTemplate">

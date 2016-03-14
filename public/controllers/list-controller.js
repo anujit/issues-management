@@ -16,11 +16,14 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 	//self.url = LIST_URL;
 	self.url = API_URL;
 
+	this.loading = true;
+
 	var list = fetchData.getData({
 		url : self.url,
 		method : 'GET'
 	}).then(function(data){
 		console.log('List of issues -- ', data);
+		self.loading = false;
 		self.issues = data;
 	});
 
