@@ -17,6 +17,77 @@
       }
   }]);
 
+  angular.module('foodApp').directive('inlineEditing',[function(){
+    return {
+      scope : {
+        label : '=',
+        value : '=',
+        change : '&',
+        editBtn : '@'
+      },
+      replace:true,
+      template : '<div><b>{{label}} : </b><span ng-click="edit()" ng-hover="hover()" ng-hide="editmode">{{value}}</span><input on-enter="removeEdit()" ng-model="value" ng-blur="removeEdit()"></input></div>',
+      link : function($scope,ele,attrs){
+        $scope.editmode = false;
+
+        // first hide the input element
+        var inputElement = angular.element(ele.children()[2]);
+        inputElement.attr('style','display:none;');
+
+
+        // to enable edit mode on clicking the text
+        $scope.edit = function(){
+          $scope.editmode = true;
+          inputElement.attr('style','display:inline-block;');
+          inputElement[0].focus();
+
+          $scope.editBtn = false;
+        };
+
+        // to disable the edit mode..
+        $scope.removeEdit = function(){
+          // if this function is already invoked, then return..
+          if($scope.editmode == false) return;
+
+          $scope.editmode = false;
+          inputElement.attr('style','display:none;');
+          $scope.change();
+        };
+
+        attrs.$observe('editBtn',function(v){
+          console.log(v);
+
+          if(v){
+            $scope.edit();
+          }
+        });
+      }
+    };
+  }]);
+
+  angular.module('foodApp').directive('onEnter',[function(){
+    var ENTER_KEY = 13;
+    var ESCAPE_KEY = 27;
+
+    return{
+
+      scope : {
+        onEnter : '&'
+      },
+      link : function(scope,ele,attrs){
+        ele.on('keypress',function(e){
+          if(e.which === ENTER_KEY){
+            scope.onEnter();
+          }
+
+          if(e.which === ESCAPE_KEY){
+            scope.editmode = false;
+          }
+        });
+      }
+    }
+  }]);
+
   /*
   * angular-ui-bootstrap
   * http://angular-ui.github.io/bootstrap/
@@ -100,7 +171,8 @@
         isOpen: '=?',
         isDisabled: '=?',
         listCtrl : '=info',
-        issue:'='
+        issue:'=',
+        editBtn : '@'
       },
       controller: function() {
         this.setHeading = function(element) {
@@ -108,11 +180,12 @@
         };
       },
       link: function(scope, element, attrs, accordionCtrl) {
-        console.log(scope);
+        console.log(element.children().find('.title-input-wrap').find('input'));
         accordionCtrl.addGroup(scope);
 
         scope.openClass = attrs.openClass || 'panel-open';
         scope.panelClass = attrs.panelClass || 'panel-default';
+
         scope.$watch('isOpen', function(value) {
           element.toggleClass(scope.openClass, !!value);
           if (value) {
@@ -120,14 +193,21 @@
           }
         });
 
+        scope.$watch('editBtn',function(value){
+          console.log(value);
+        });
+
         scope.toggleOpen = function($event) {
-          console.log('toggleOpen');
           if (!scope.isDisabled) {
             if (!$event || $event.which === 32) {
               scope.isOpen = !scope.isOpen;
             }
           }
         };
+
+        scope.removeEdit = function(){
+          console.log('head input blur');
+        }
 
         var id = 'accordiongroup-' + scope.$id + '-' + Math.floor(Math.random() * 10000);
         scope.headingId = id + '-tab';
@@ -148,6 +228,11 @@
         // so that it can be transcluded into the right place in the template
         // [The second parameter to transclude causes the elements to be cloned so that they work in ng-repeat]
         accordionGroupCtrl.setHeading(transclude(scope, angular.noop));
+
+        // scope.$watch('editBtn',function(val){
+        //   console.log(val);
+        // });
+
       }
     };
   })
@@ -309,8 +394,8 @@
       "    <h4 class=\"panel-title\"  ng-hide=\"listCtrl.editorEnabled[issue._id]\">\n" +
       "      <a role=\"button\" href aria-expanded=\"{{isOpen}}\" aria-controls=\"{{::panelId}}\" tabindex=\"0\" class=\"accordion-toggle\" ng-click=\"toggleOpen()\" uib-accordion-transclude=\"heading\"><span uib-accordion-header ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\n" +
       "    </h4>\n" +
-      "<div ng-show=\"listCtrl.editorEnabled[issue._id]\" style=\"height:32px;\">\n"+
-      			"<input style=\"float:left;height:34px;margin-right:15px;\" ng-model=\"issue.name\">\n"+
+      "<div ng-show=\"listCtrl.editorEnabled[issue._id]\" style=\"height:32px;\" class=\"title-input-wrap\">\n"+
+      			"<input style=\"float:left;height:34px;margin-right:15px;\" ng-model=\"issue.name\" ng-blur=\"removeEdit()\">\n"+
       				"</div>"+
       "  </div>\n" +
       "  <div id=\"{{::panelId}}\" aria-labelledby=\"{{::headingId}}\" aria-hidden=\"{{!isOpen}}\" role=\"tabpanel\" class=\"panel-collapse collapse\" uib-collapse=\"!isOpen\">\n" +

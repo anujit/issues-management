@@ -123,6 +123,20 @@ img {
 	right:3px;
 }
 
+.issue-inner{
+	position: relative;
+}
+
+.desc-edit-wrap{
+	display: inline-block;
+	position: absolute;
+	margin-left: 5px;
+}
+
+.reported-by-wrapper{
+	position: absolute;
+	top:35px;
+}
 
 /*add restaurant css*/
 

@@ -13,17 +13,15 @@
 	<div class="restaurant-wrapper">
 		<div class="loading" ng-show="listCtrl.loading"><img src="http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif" style="width:20px;height:20px;margin:10px;"  />LOADING...</div>
 		<uib-accordion close-others="true" ng-if="listCtrl.issues.length">
-			<uib-accordion-group ng-repeat="issue in listCtrl.issues | orderBy:'-updated_at' | filter:searchText" remove-on-click info="listCtrl" issue="issue">
+			<uib-accordion-group ng-repeat="issue in listCtrl.issues | orderBy:'-updated_at' | filter:searchText" remove-on-click info="listCtrl" issue="issue" edit-btn="{{listCtrl.editorEnabled[issue._id]}}">
 				<uib-accordion-heading show="true">
 						{{issue.name}}
 				</uib-accordion-heading>
 				<div class="testTemplate">
 					<div class="issue-inner">
-						<div ng-hide="listCtrl.editorEnabled[issue._id]"><b>Description : </b>{{issue.description}}</div>
-						<div ng-hide="listCtrl.editorEnabled[issue._id]"><b>Reported by : </b> {{issue.reported_by}}</div>
-						<div ng-show="listCtrl.editorEnabled[issue._id]">
-							<input style="float:left;height:34px;margin-right:15px;" ng-model="issue.description">
-							<button style="float:left;" type="button" class="btn btn-primary" ng-click="listCtrl.updateIssue(issue)">Done</button>
+						<div class="description-wrapper">
+							<inline-editing label="'Description'" value="issue.description" change="listCtrl.updateIssue(issue)" edit-btn="{{listCtrl.editorEnabled[issue._id]}}"></inline-editing>
+							<inline-editing label="'Reported By'" value="issue.reported_by" change="listCtrl.updateIssue(issue)"></inline-editing>
 						</div>
 					</div>
 					<div class="issue-actions">

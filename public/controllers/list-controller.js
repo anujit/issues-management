@@ -27,22 +27,32 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 		self.issues = data;
 	});
 
+	self.showDescription = false;
+
 	self.addIssue = function(){
 		$location.path('add');
 	};
 
 	self.updateIssue = function(issue){
-		self.editorEnabled[issue._id]=!self.editorEnabled[issue._id];
+		//if(self.editorEnabled) self.editorEnabled[issue._id]=!self.editorEnabled[issue._id];
 		console.log(issue);
+		// fetchData.getData({
+		// 	url : API_URL + '/' + issue._id,
+		// 	method : 'PUT',
+		// 	data : {
+		// 		description : issue.description,
+		// 		name:issue.name,
+		//		reported_by : issue.reported_by
+		// 	}
+		// });
+	}
 
-		fetchData.getData({
-			url : API_URL + '/' + issue._id,
-			method : 'PUT',
-			data : {
-				description : issue.description,
-				name:issue.name
-			}
-		});
+	self.hideOnClick = function(issue){
+		console.log(issue);
+		console.log(self.showDescription,self.editorEnabled);
+		//if(self.showDescription) self.showDescription = false;
+
+		//if(self.editorEnabled && self.editorEnabled[issue._id]) self.editorEnabled[issue._id] = false;
 	}
 
 }]);
