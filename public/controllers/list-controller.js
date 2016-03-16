@@ -36,15 +36,15 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 	self.updateIssue = function(issue){
 		//if(self.editorEnabled) self.editorEnabled[issue._id]=!self.editorEnabled[issue._id];
 		console.log(issue);
-		// fetchData.getData({
-		// 	url : API_URL + '/' + issue._id,
-		// 	method : 'PUT',
-		// 	data : {
-		// 		description : issue.description,
-		// 		name:issue.name,
-		//		reported_by : issue.reported_by
-		// 	}
-		// });
+		fetchData.getData({
+			url : API_URL + '/' + issue._id,
+			method : 'PUT',
+			data : {
+				description : issue.description,
+				name:issue.name,
+				reported_by : issue.reported_by
+			}
+		});
 	}
 
 	self.hideOnClick = function(issue){
