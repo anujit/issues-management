@@ -20,19 +20,11 @@ foodApp.factory('FetchData',['$http','$q',function($http,$q){
 	var obj = {};
 
 	obj.name = 'fetch data service';
-
+	//console.log($httpProvider.defaults.headers);
 	obj.getData = function(config){
-		//return $http.jsonp(url + '&callback=JSON_CALLBACK');
-		//var url = obj.url;
+
 		var deferred = $q.defer();
-
-		// var method = obj.method || 'GET';
-
-		// var config = {
-			// method : method
-		// };
-
-		//url += url.indexOf('?') != -1 ? '&' : '?';
+		
 		console.log(config);
 		$http(config)
 		.success(function(data){

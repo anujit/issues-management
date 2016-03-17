@@ -1,4 +1,4 @@
-	foodApp.controller('AddCtrl',['$http','$location',function($http,$location){
+	foodApp.controller('AddCtrl',['$http','$location','FetchData',function($http,$location,fetchData){
 		var self = this;
 
 		self.submit = function(){
@@ -6,25 +6,20 @@
 			var url = '/api/issues';
 
 			var config = {
-			 data: self.newReview
-			 //headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			//  transformRequest: function(obj) {
-	    //      var str = [];
-	    //      for(var p in obj)
-	    //      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-	    //      return str.join("&");
-	    //  }
-		};
+				url : url,
+				data: JSON.stringify(self.newReview),
+				method : 'POST'
+			};
+			
 			self.loading = false;
-			$http.post(url,config)
-			.success(function(data){
+			
+			fetchData.getData(config)
+			.then(function(data){
 				console.log(data);
 				self.loading = true;
-				$location.path('/');
-			})
-			.error(function(error){
-				console.log(error);
+				$location.path('/');			
+			},function(e){
+				console.log(e);
 			});
-
 		}
 	}]);

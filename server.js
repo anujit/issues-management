@@ -54,7 +54,9 @@ router.route('/issues').get(function(req,res){
 
 //create new issue..
 router.route('/issues').post(function(req,res){
-  var data  = req.body.data
+	console.log(req);
+	console.log(req.body);
+  var data  = req.body;
   console.log("body :", typeof data);
 
   var dataParams = {
@@ -83,6 +85,7 @@ router.route('/issues/:issue_id')
 
     issue.description = req.body.description || issue.description;
     issue.name = req.body.name || issue.name;
+    issue.reported_by = req.body.reported_by || issue.reported_by;
 
     issue.save(function(err){
       if(err) res.send(err);
