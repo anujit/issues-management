@@ -10,7 +10,7 @@ var foodApp = angular.module('foodApp',['ngRoute','ui.bootstrap']);
 		reposTemplate : '/templates/repos-template.html'
 	};
 
-	foodApp.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
+	foodApp.config(['$routeProvider','$locationProvider','$httpProvider',function($routeProvider,$locationProvider,$httpProvider){
 
 		$routeProvider.when('/',{
 			templateUrl : TEMPLATES.listTemplate,
@@ -33,7 +33,7 @@ var foodApp = angular.module('foodApp',['ngRoute','ui.bootstrap']);
 			controller : 'ReposCtrl as reposCtrl'
 		})
 		.otherwise({redirectTo : '/'});
-
+		
 		$locationProvider.hashPrefix('!');
 	}])
 	.constant('appConfig',{
