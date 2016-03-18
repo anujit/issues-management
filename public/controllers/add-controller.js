@@ -7,7 +7,7 @@
 
 			var config = {
 				url : url,
-				data: JSON.stringify(self.newReview),
+				data: self.newReview,
 				method : 'POST'
 			};
 			
