@@ -138,6 +138,10 @@ img {
 	top:35px;
 }
 
+.rep-dd-wrap{
+	margin-left:15px;
+}
+
 /*add restaurant css*/
 
 .formlabel{
@@ -159,3 +163,12 @@ img {
 }
 
 .required :after { content:"*"; color: #e32;}
+
+/*login*/
+.login-anchor{
+	cursor:pointer;
+}
+.login-wrapper{
+	width:305px;
+	margin:auto;
+}

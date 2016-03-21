@@ -6,8 +6,7 @@ var foodApp = angular.module('foodApp',['ngRoute','ui.bootstrap']);
 	var TEMPLATES = {
 		listTemplate : '/templates/list-template.html',
 		addTemplate : '/templates/add-template.html',
-		issueTemplate : '/templates/issue-template.html',
-		reposTemplate : '/templates/repos-template.html'
+		loginTemplate : '/templates/login-template.html'
 	};
 
 	foodApp.config(['$routeProvider','$locationProvider','$httpProvider',function($routeProvider,$locationProvider,$httpProvider){
@@ -20,20 +19,12 @@ var foodApp = angular.module('foodApp',['ngRoute','ui.bootstrap']);
 			templateUrl : TEMPLATES.addTemplate,
 			controller : 'AddCtrl as addCtrl'
 		})
-		.when('/issue',{
-			templateUrl : TEMPLATES.issueTemplate,
-			controller : 'IssueCtrl as issueCtrl'
-		})
-		.when('/add-issue',{
-			templateUrl : TEMPLATES.addIssueTemplate,
-			controller : 'AddIssueCtrl as addIssueCtrl'
-		})
-		.when('/:user/repos',{
-			templateUrl : TEMPLATES.reposTemplate,
-			controller : 'ReposCtrl as reposCtrl'
+		.when('/login',{
+			templateUrl : TEMPLATES.loginTemplate,
+			controller : 'LoginCtrl as loginCtrl'
 		})
 		.otherwise({redirectTo : '/'});
-		
+
 		$locationProvider.hashPrefix('!');
 	}])
 	.constant('appConfig',{

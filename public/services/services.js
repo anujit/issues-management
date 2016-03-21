@@ -6,7 +6,7 @@ foodApp.factory('CheckSession',[function(){
 	var obj = {};
 
 	obj.check_if_logged_in = function(user){
-		return sessionStorage.user === user && sessionStorage.auth_str ? true : false;
+		return sessionStorage.user && sessionStorage.auth_str ? true : false;
 	}
 
 	return obj;

@@ -1,20 +1,29 @@
-foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetchData,$location,appConfig){
+foodApp.controller('ListCtrl',['FetchData','$location','appConfig','$timeout','CheckSession',function(fetchData,$location,appConfig,$timeout,checkSession){
 	console.log('list controller created');
 
 	var self = this;
 
 	self.oneAtATime = false;
 
+	self.commentText = 'You need to log in to comment';
+	sessionStorage.user = 'anujit';
+	console.log();
+
+	self.comments = [];
 
 	self.status = {
-	isFirstOpen: false,
-	isFirstDisabled: false
-};
-
+		isFirstOpen: false,
+		isFirstDisabled: false
+	};
+	
+	self.isLoggedIn = checkSession.check_if_logged_in();
+	console.log(self.isLoggedIn);
 	var API_URL = appConfig.api;
 
 	//self.url = LIST_URL;
 	self.url = API_URL;
+
+	self.comments_url = 'https://api.github.com/repos/anujit/issues-management/issues/1/comments';
 
 	this.loading = true;
 
@@ -25,12 +34,26 @@ foodApp.controller('ListCtrl',['FetchData','$location','appConfig',function(fetc
 		console.log('List of issues -- ', data);
 		self.loading = false;
 		self.issues = data;
+
+		// if logged in, show the comments box..
+
+		//load comments now..
+		self.getComments();
 	});
 
 	self.showDescription = false;
 
 	self.addIssue = function(){
 		$location.path('add');
+	};
+
+	self.getComments = function(){
+		fetchData.getData({
+			url : self.comments_url,
+			method : 'GET'
+		}).then(function(data){
+			self.comments = data;
+		});
 	};
 
 	self.updateIssue = function(issue){
